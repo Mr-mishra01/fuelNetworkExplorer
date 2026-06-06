@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const m=require\\('@maplibre/maplibre-react-native'\\); console.log\\(Object.keys\\(m\\).sort\\(\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(npm install *)",
+      "Bash(bundle exec *)",
+      "Bash(pod install *)"
+    ]
+  }
+}

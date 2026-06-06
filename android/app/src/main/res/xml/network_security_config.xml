@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android Network Security Configuration.
+
+  All map tile/style traffic uses HTTPS — system trust store.
+  Only Metro dev-server localhost addresses get HTTP cleartext.
+-->
+<network-security-config>
+
+    <!-- Metro bundler dev server (HTTP cleartext for development only) -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <domain includeSubdomains="false">10.0.3.2</domain>
+    </domain-config>
+
+    <!--
+      Mapbox — covers:
+        api.mapbox.com       (styles, tiles, geocoding, events)
+        a.tiles.mapbox.com   (tile CDN node A)
+        b.tiles.mapbox.com   (tile CDN node B)
+        c.tiles.mapbox.com   (tile CDN node C)
+        events.mapbox.com    (telemetry — cleartext blocked = no crash)
+    -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">mapbox.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+    <!-- Default: HTTPS only for everything else -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+</network-security-config>
